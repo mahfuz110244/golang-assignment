@@ -5,18 +5,16 @@ import (
 	"time"
 )
 
-func goRoutine(ch chan string) {
+func goRoutine(quit chan string) {
 	for {
-		fmt.Println("working, now wait for 1 second in goroutine")
-		time.Sleep(1 * time.Second)
-		fmt.Println(time.Now())
-		data := <-ch
-		fmt.Println(fmt.Sprintf("signal from main goroutine: %s", data))
-		if data != "stop" {
-			fmt.Println("working in goroutine")
-		} else {
+		select {
+		case <-quit:
 			fmt.Println("stopped in goroutine")
 			return
+		default:
+			fmt.Println("working, now wait for 1 second in goroutine")
+			time.Sleep(1 * time.Second)
+			fmt.Println(time.Now())
 		}
 	}
 }
@@ -28,6 +26,5 @@ func main() {
 	fmt.Println("wait for 20 second in main goroutine")
 	time.Sleep(20 * time.Second)
 	ch <- "stop"
-	time.Sleep(1 * time.Second)
 	fmt.Println(fmt.Sprintf("main goroutine finished: %s", time.Now()))
 }
