@@ -23,7 +23,7 @@ http://localhost:8080
 ### Create two authors John and Karim
 ```
 mutation creatAuthor1 {
-  creatAuthor(name: "John", biography: "good writer") {
+  createAuthor(name: "John", biography: "good writer") {
     id
     name
     biography
@@ -31,7 +31,7 @@ mutation creatAuthor1 {
 }
 
 mutation creatAuthor2 {
-  creatAuthor(name: "Karim", biography: "good writer") {
+  createAuthor(name: "Karim", biography: "good writer") {
     id
     name
     biography
